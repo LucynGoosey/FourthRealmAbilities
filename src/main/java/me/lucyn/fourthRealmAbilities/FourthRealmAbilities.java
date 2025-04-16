@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FourthRealmAbilities extends JavaPlugin implements Listener {
 
+    //TODO: proper player interact listener
+
 
 
     public static FourthRealmCore fourthRealmCore;
