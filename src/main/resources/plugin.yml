@@ -2,3 +2,7 @@ name: FourthRealmAbilities
 version: '1.0'
 main: me.lucyn.fourthRealmAbilities.FourthRealmAbilities
 api-version: '1.21'
+commands:
+  setability:
+    description: Set one of your ability slots
+    usage: /setability <slot 1-3> <abilityID>
