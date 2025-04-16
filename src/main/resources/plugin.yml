@@ -1,0 +1,4 @@
+name: FourthRealmAbilities
+version: '1.0'
+main: me.lucyn.fourthRealmAbilities.FourthRealmAbilities
+api-version: '1.21'
