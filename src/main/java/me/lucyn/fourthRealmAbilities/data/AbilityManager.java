@@ -30,11 +30,11 @@ public class AbilityManager {
         return registeredAbilities.containsKey(id);
     }
 
-    public static boolean assignAbilityToPlayer(Player player, String id, int slot) {
-        RealmPlayer realmPlayer = FourthRealmAbilities.fourthRealmCore.getPlayerData(player);
+    public static boolean assignAbilityToPlayer(RealmPlayer realmPlayer, Ability ability, int slot) {
         if (slot < 0 || slot > 2) return false;
-        if(isValidAbility(id)) return false;
-        realmPlayer.equippedAbilities[slot] = id;
+        //if(isValidAbility(id)) return false;
+
+        realmPlayer.equippedAbilities[slot] = ability.id;
         FourthRealmAbilities.fourthRealmCore.setPlayerData(realmPlayer);
         return true;
     }

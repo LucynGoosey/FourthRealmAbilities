@@ -1,6 +1,9 @@
 package me.lucyn.fourthRealmAbilities.commands;
 
+import me.lucyn.fourthRealmAbilities.FourthRealmAbilities;
+import me.lucyn.fourthRealmAbilities.abilities.Ability;
 import me.lucyn.fourthRealmAbilities.data.AbilityManager;
+import me.lucyn.fourthrealm.RealmPlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,9 +32,14 @@ public class SetAbilityCommand implements CommandExecutor {
             player.sendMessage("§cSlot must be a number between 1 and 3.");
             return true;
         }
-
-        if(AbilityManager.assignAbilityToPlayer(player, args[1], slot)) player.sendMessage("§aSet ability in slot " + (slot + 1) + " to " + args[1] + ".");
-        else player.sendMessage("§cInvalid ability ID.");
+        if(!AbilityManager.isValidAbility(args[1])) {
+            player.sendMessage("§cInvalid ability ID.");
+            return true;
+        }
+        Ability ability = AbilityManager.getAbility(args[1]);
+        RealmPlayer realmPlayer = FourthRealmAbilities.fourthRealmCore.getPlayerData(player);
+        if(AbilityManager.assignAbilityToPlayer(realmPlayer, ability, slot)) player.sendMessage("§aSet ability in slot " + (slot + 1) + " to " + args[1] + ".");
+        else player.sendMessage("§cAbility" + args[1] + "is incompatible with another ability.");
         return true;
     }
 }

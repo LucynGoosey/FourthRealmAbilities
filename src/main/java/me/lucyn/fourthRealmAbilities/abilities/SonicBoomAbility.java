@@ -1,6 +1,7 @@
 package me.lucyn.fourthRealmAbilities.abilities;
 
 import me.lucyn.fourthRealmAbilities.FourthRealmAbilities;
+import me.lucyn.fourthRealmAbilities.data.IncompatibilityTag;
 import me.lucyn.fourthrealm.RealmPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -36,6 +37,8 @@ public class SonicBoomAbility extends Ability {
 
     public SonicBoomAbility(FourthRealmAbilities plugin) {
         super("sonicboom", "Sonic Boom", plugin);
+        addIncompatibilityTag(IncompatibilityTag.PROJECTILE);
+
     }
 
     @Override
