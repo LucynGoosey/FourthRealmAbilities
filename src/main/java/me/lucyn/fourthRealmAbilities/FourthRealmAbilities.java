@@ -5,34 +5,26 @@ import me.lucyn.fourthRealmAbilities.commands.SetAbilityCommand;
 import me.lucyn.fourthRealmAbilities.data.AbilityManager;
 import me.lucyn.fourthRealmAbilities.listeners.PlayerInteractListener;
 import me.lucyn.fourthrealm.FourthRealmCore;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Objects;
 
 public final class FourthRealmAbilities extends JavaPlugin {
 
     public static FourthRealmCore fourthRealmCore;
 
-    private final AbilityManager abilityManager = new AbilityManager();
-
-    public AbilityManager getAbilityManager() {
-        return abilityManager;
-    }
-
-
     @Override
     public void onEnable() {
 
-        getCommand("setability").setExecutor(new SetAbilityCommand(this));
+        Objects.requireNonNull(getCommand("setability")).setExecutor(new SetAbilityCommand());
 
-        abilityManager.registerAbility(new SonicBoomAbility(this));
+        AbilityManager.registerAbility(new SonicBoomAbility(this));
 
 
 
         fourthRealmCore = (FourthRealmCore) getServer().getPluginManager().getPlugin("FourthRealmCore");
 
-        getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
 
 
         // Plugin startup logic

@@ -14,7 +14,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
@@ -43,7 +42,7 @@ public class SonicBoomAbility extends Ability {
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        if (event.getAction() != Action.RIGHT_CLICK_AIR) return;
+        if (event.getAction() != Action.RIGHT_CLICK_AIR || event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (!player.getInventory().getItemInMainHand().getType().toString().toLowerCase().contains("sword")) return;
 
         UUID uuid = player.getUniqueId();
@@ -98,7 +97,7 @@ public class SonicBoomAbility extends Ability {
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
 
-            RealmPlayer realmPlayer = plugin.fourthRealmCore.getPlayerData(player);
+            RealmPlayer realmPlayer = FourthRealmAbilities.fourthRealmCore.getPlayerData(player);
             int range = 50;
 
             Location eyeLocation = player.getEyeLocation();

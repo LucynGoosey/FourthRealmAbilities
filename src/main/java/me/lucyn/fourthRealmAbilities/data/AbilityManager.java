@@ -1,28 +1,42 @@
 package me.lucyn.fourthRealmAbilities.data;
 
+import me.lucyn.fourthRealmAbilities.FourthRealmAbilities;
 import me.lucyn.fourthRealmAbilities.abilities.Ability;
+import me.lucyn.fourthrealm.RealmPlayer;
+import org.bukkit.entity.Player;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbilityManager {
-    private final Map<String, Ability> registeredAbilities = new HashMap<>();
+//TODO: add logging to record invalid abilities
 
-    public void registerAbility(Ability ability) {
+public class AbilityManager {
+    private static final Map<String, Ability> registeredAbilities = new HashMap<>();
+
+    public static void registerAbility(Ability ability) {
         registeredAbilities.put(ability.id, ability);
     }
 
-    public Ability getAbility(String id) {
+    public static Ability getAbility(String id) {
         return registeredAbilities.get(id);
     }
 
-    public Collection<Ability> getAllAbilities() {
+    public static  Collection<Ability> getAllAbilities() {
         return registeredAbilities.values();
     }
 
-    public boolean isValidAbility(String id) {
+    public static boolean isValidAbility(String id) {
         return registeredAbilities.containsKey(id);
+    }
+
+    public static boolean assignAbilityToPlayer(Player player, String id, int slot) {
+        RealmPlayer realmPlayer = FourthRealmAbilities.fourthRealmCore.getPlayerData(player);
+        if (slot < 0 || slot > 2) return false;
+        if(isValidAbility(id)) return false;
+        realmPlayer.equippedAbilities[slot] = id;
+        FourthRealmAbilities.fourthRealmCore.setPlayerData(realmPlayer);
+        return true;
     }
 
 }

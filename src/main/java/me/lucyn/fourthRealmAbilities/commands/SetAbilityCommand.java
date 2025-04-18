@@ -1,7 +1,6 @@
 package me.lucyn.fourthRealmAbilities.commands;
 
-import me.lucyn.fourthRealmAbilities.FourthRealmAbilities;
-import me.lucyn.fourthrealm.RealmPlayer;
+import me.lucyn.fourthRealmAbilities.data.AbilityManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,11 +8,6 @@ import org.bukkit.entity.Player;
 
 public class SetAbilityCommand implements CommandExecutor {
 
-    private final FourthRealmAbilities plugin;
-
-    public SetAbilityCommand(FourthRealmAbilities plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -27,7 +21,6 @@ public class SetAbilityCommand implements CommandExecutor {
             return true;
         }
 
-        RealmPlayer realmPlayer = FourthRealmAbilities.fourthRealmCore.getPlayerData(player);
         int slot;
         try {
             slot = Integer.parseInt(args[0]) - 1;
@@ -37,13 +30,10 @@ public class SetAbilityCommand implements CommandExecutor {
             return true;
         }
 
-        String abilityId = args[1].toLowerCase();
-
-
-        realmPlayer.equippedAbilities[slot] = abilityId;
-
-        player.sendMessage("§aSet ability in slot " + (slot + 1) + " to " + abilityId);
+        if(AbilityManager.assignAbilityToPlayer(player, args[1], slot)) player.sendMessage("§aSet ability in slot " + (slot + 1) + " to " + args[1] + ".");
+        else player.sendMessage("§cInvalid ability ID.");
         return true;
     }
 }
+
 
